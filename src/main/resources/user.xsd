@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+
+	<element name="user">
+		<complexType>
+			<sequence>
+				<element name="email">
+					<simpleType>
+						<restriction base="string">
+							<pattern value=".+@.+"></pattern>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="firstName" type="string"></element>
+				<element name="id" type="int"></element>
+				<element name="lastName" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

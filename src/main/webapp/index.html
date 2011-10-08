@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<title>hasCode.com - REST-assured Examples Webapp</title>
+	</head>
+	<body>
+		<h1>hasCode.com REST-assured xxamples</h1>
+		<table>
+			<caption>Examples Overview</caption>
+			<thead>
+				<tr>
+					<th>URL</th>
+					<th>Method</th>
+					<th>Content-Type</th>
+					<th>HTTP-Status</th>
+					<th>Body</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="4" align="center"><em>Validate returned JSON via Get</em></td>
+				</tr>
+				<tr>
+					<td><a href="/rest-assured-examples-webapp/raexample/single-user">/rest-assured-examples-webapp/raexample/single-user</a></td>
+					<td>GET</td>
+					<td>application/json</td>
+					<td>200</td>
+					<td><blockquote><pre escaped="true" lang="json">{
+  "email":"test@hascode.com",
+  "firstName":"Tim",
+  "id":"1",
+  "lastName":"Testerman"
+}</pre></blockquote></td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center"><em>XML Example</em></td>
+				</tr>
+				<tr>
+					<td><a href="/rest-assured-examples-webapp/raexample/user-with-attrs/xml">/rest-assured-examples-webapp/raexample/user-with-attrs/xml</a></td>
+					<td>GET</td>
+					<td>application/xml</td>
+					<td>200</td>
+					<td><blockquote><pre escaped="true" lang="xml"><?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+&lt;user&gt;
+  &lt;email&gt;test@hascode.com&lt;/email&gt;
+  &lt;firstName&gt;Tim&lt;/firstName&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;lastName&gt;Testerman&lt;/lastName&gt;
+&lt;/user&gt;</pre></blockquote></td>
+				</tr>
+							<tr>
+					<td colspan="4" align="center"><em>XML using XPath</em></td>
+				</tr>
+				<tr>
+					<td><a href="/rest-assured-examples-webapp/raexample/persons/xml">/rest-assured-examples-webapp/raexample/persons/xml</a></td>
+					<td>GET</td>
+					<td>application/xml</td>
+					<td>200</td>
+					<td><blockquote><pre escaped="true" lang="xml"><?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+&lt;people&gt;
+  &lt;person id="1"&gt;
+    &lt;email&gt;test@hascode.com&lt;/email&gt;
+    &lt;firstName&gt;Tim&lt;/firstName&gt;
+    &lt;lastName&gt;Testerman&lt;/lastName&gt;
+  &lt;/person&gt;
+  &lt;person id="20"&gt;
+    &lt;email&gt;dev@hascode.com&lt;/email&gt;
+    &lt;firstName&gt;Sara&lt;/firstName&gt;
+    &lt;lastName&gt;Stevens&lt;/lastName&gt;
+  &lt;/person&gt;
+  &lt;person id="11"&gt;
+    &lt;email&gt;devnull@hascode.com&lt;/email&gt;
+    &lt;firstName&gt;Mark&lt;/firstName&gt;
+    &lt;lastName&gt;Mustache&lt;/lastName&gt;
+  &lt;/person&gt;
+&lt;/people&gt;</pre></blockquote></td>
+				</tr>
+								<tr>
+					<td colspan="4" align="center"><em></em></td>
+				</tr>
+				<tr>
+					<td><a href="/rest-assured-examples-webapp/raexample/">/rest-assured-examples-webapp/raexample/</a></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

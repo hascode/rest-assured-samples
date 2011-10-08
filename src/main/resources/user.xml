@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="user.xsd">
+	<email>test@hascode.com</email>
+	<firstName>Tim</firstName>
+	<id>1</id>
+	<lastName>Testerman</lastName>
+</user>
+
