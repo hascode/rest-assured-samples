@@ -17,4 +17,24 @@
     <welcome-file-list>
     	<welcome-file>/index.html</welcome-file>
     </welcome-file-list>
+    
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>MySecurityConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>SecuredRestService</web-resource-name>
+            <url-pattern>/service/secure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>hasCode.com Secured REST Service</realm-name>
+    </login-config>
 </web-app>

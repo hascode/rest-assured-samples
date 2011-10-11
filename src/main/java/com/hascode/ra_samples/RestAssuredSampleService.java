@@ -6,9 +6,11 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-@Path("raexample")
+@Path("/service")
 public class RestAssuredSampleService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,4 +63,39 @@ public class RestAssuredSampleService {
 		users.add(person3);
 		return users;
 	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/user/create")
+	public User createUser(@QueryParam("email") final String email,
+			@QueryParam("firstName") final String firstName,
+			@QueryParam("lastName") final String lastName) {
+		User user = new User();
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setId(1L);
+
+		return user;
+	}
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/status/notfound")
+	public Response statusNotFound() {
+		return Response.status(404).build();
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/secure/person")
+	public Person secureGetPerson() {
+		Person person = new Person();
+		person.setEmail("test@hascode.com");
+		person.setFirstName("Tim");
+		person.setLastName("Testerman");
+		person.setId(1L);
+		return person;
+	}
+
 }
