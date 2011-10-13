@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -91,6 +92,13 @@ public class RestAssuredSampleService {
 	@Path("/secure/person")
 	public String secureGetPerson() {
 		return "Ok";
+	}
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/header/print")
+	public String printHeader(@HeaderParam("myparam") final String headerParam) {
+		return headerParam;
 	}
 
 }

@@ -11,7 +11,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jayway.restassured.path.json.JsonPath;
@@ -23,7 +22,6 @@ public class RestAssuredSampleServiceIT {
 	 * Tutorial note: The JSON returned is this
 	 * <code>{"email":"test@hascode.com","firstName":"Tim","id":"1","lastName":"Testerman"}</code>
 	 */
-	@Ignore
 	@Test
 	public void testGetSingleUser() {
 		expect().statusCode(200)
@@ -36,7 +34,6 @@ public class RestAssuredSampleServiceIT {
 	 * Tutorial note: The JSON returned is this
 	 * <code>{"email":"test@hascode.com","firstName":"Tim","id":"1","lastName":"Testerman"}</code>
 	 */
-	@Ignore
 	@Test
 	public void testGetSingleUserProgrammatic() {
 		Response res = get("/ra/service/single-user");
@@ -49,7 +46,6 @@ public class RestAssuredSampleServiceIT {
 		assertEquals("1", jp.get("id"));
 	}
 
-	@Ignore
 	@Test
 	public void testGetSingleUserAsXml() {
 		expect().statusCode(200)
@@ -59,7 +55,6 @@ public class RestAssuredSampleServiceIT {
 				.get("/ra/service/single-user/xml");
 	}
 
-	@Ignore
 	@Test
 	public void testGetPersons() {
 		expect().statusCode(200)
@@ -69,7 +64,6 @@ public class RestAssuredSampleServiceIT {
 				.when().get("/ra/service/persons/xml");
 	}
 
-	@Ignore
 	@Test
 	public void testGetSingleUserAgainstSchema() {
 		InputStream xsd = getClass().getResourceAsStream("/user.xsd");
@@ -78,7 +72,6 @@ public class RestAssuredSampleServiceIT {
 				.get("/ra/service/single-user/xml");
 	}
 
-	@Ignore
 	@Test
 	public void testCreateuser() {
 		final String email = "test@hascode.com";
@@ -92,7 +85,6 @@ public class RestAssuredSampleServiceIT {
 				.get("/ra/service/user/create");
 	}
 
-	@Ignore
 	@Test
 	public void testStatusNotFound() {
 		expect().statusCode(404).when().get("/ra/service/status/notfound");
@@ -107,5 +99,13 @@ public class RestAssuredSampleServiceIT {
 		expect().statusCode(200).body(equalTo("Ok")).when().with()
 				.authentication().basic("admin", "admin")
 				.get("/ra/service/secure/person");
+	}
+
+	@Test
+	public void testSetRequestHeaders() {
+		expect().body(equalTo("TEST")).when().with().header("myparam", "TEST")
+				.get("/ra/service/header/print");
+		expect().body(equalTo("foo")).when().with().header("myparam", "foo")
+				.get("/ra/service/header/print");
 	}
 }
