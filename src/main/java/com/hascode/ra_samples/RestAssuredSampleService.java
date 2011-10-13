@@ -87,15 +87,10 @@ public class RestAssuredSampleService {
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/secure/person")
-	public Person secureGetPerson() {
-		Person person = new Person();
-		person.setEmail("test@hascode.com");
-		person.setFirstName("Tim");
-		person.setLastName("Testerman");
-		person.setId(1L);
-		return person;
+	public String secureGetPerson() {
+		return "Ok";
 	}
 
 }

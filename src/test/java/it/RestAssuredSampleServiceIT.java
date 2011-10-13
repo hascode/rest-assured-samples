@@ -26,7 +26,7 @@ public class RestAssuredSampleServiceIT {
 	@Ignore
 	@Test
 	public void testGetSingleUser() {
-		expect().statusCode(equalTo(200))
+		expect().statusCode(200)
 				.body("email", equalTo("test@hascode.com"), "firstName",
 						equalTo("Tim"), "lastName", equalTo("Testerman"), "id",
 						equalTo("1")).when().get("/ra/service/single-user");
@@ -52,7 +52,7 @@ public class RestAssuredSampleServiceIT {
 	@Ignore
 	@Test
 	public void testGetSingleUserAsXml() {
-		expect().statusCode(equalTo(200))
+		expect().statusCode(200)
 				.body("user.email", equalTo("test@hascode.com"),
 						"user.firstName", equalTo("Tim"), "user.lastName",
 						equalTo("Testerman"), "user.id", equalTo("1")).when()
@@ -62,7 +62,7 @@ public class RestAssuredSampleServiceIT {
 	@Ignore
 	@Test
 	public void testGetPersons() {
-		expect().statusCode(equalTo(200))
+		expect().statusCode(200)
 				.body(hasXPath("//person[@id='1']/email[.='test@hascode.com'] and firstName='Tim' and lastName='Testerman'"))
 				.body(hasXPath("//person[@id='20']/email[.='dev@hascode.com'] and firstName='Sara' and lastName='Stevens'"))
 				.body(hasXPath("//person[@id='1']/email[.='devnull@hascode.com'] and firstName='Mark' and lastName='Mustache'"))
@@ -74,7 +74,7 @@ public class RestAssuredSampleServiceIT {
 	public void testGetSingleUserAgainstSchema() {
 		InputStream xsd = getClass().getResourceAsStream("/user.xsd");
 		assertNotNull(xsd);
-		expect().statusCode(equalTo(200)).body(matchesXsd(xsd)).when()
+		expect().statusCode(200).body(matchesXsd(xsd)).when()
 				.get("/ra/service/single-user/xml");
 	}
 
@@ -96,5 +96,16 @@ public class RestAssuredSampleServiceIT {
 	@Test
 	public void testStatusNotFound() {
 		expect().statusCode(404).when().get("/ra/service/status/notfound");
+	}
+
+	@Test
+	public void testAuthenticationWorking() {
+		// we're not authenticated, service returns "401 Unauthorized"
+		expect().statusCode(401).when().get("/ra/service/secure/person");
+
+		// with authentication it is working
+		expect().statusCode(200).body(equalTo("Ok")).when().with()
+				.authentication().basic("admin", "admin")
+				.get("/ra/service/secure/person");
 	}
 }
