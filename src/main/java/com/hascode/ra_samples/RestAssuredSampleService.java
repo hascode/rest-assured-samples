@@ -101,4 +101,23 @@ public class RestAssuredSampleService {
 		return headerParam;
 	}
 
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/header/multiple")
+	public Response multipleHeader() {
+		return Response.ok().header("customHeader1", "foo")
+				.header("anotherHeader", "bar").build();
+	}
+
+	// TODO:
+	// Setting the Content Type
+	// Verifying the Content Type
+	// Setting Cookies
+	// Verifying Cookies
+	// Specifying Path Parameters
+	// File Uploads
+	// Registering custom parsers for MIME-types
+	// Setting default values
+	// Specification reuse
+
 }

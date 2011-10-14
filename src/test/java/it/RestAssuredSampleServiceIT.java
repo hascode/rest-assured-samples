@@ -108,4 +108,10 @@ public class RestAssuredSampleServiceIT {
 		expect().body(equalTo("foo")).when().with().header("myparam", "foo")
 				.get("/ra/service/header/print");
 	}
+
+	@Test
+	public void testReturnedHeaders() {
+		expect().headers("customHeader1", "foo", "anotherHeader", "bar").when()
+				.get("/ra/service/header/multiple");
+	}
 }
