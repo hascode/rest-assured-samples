@@ -3,13 +3,19 @@ package com.hascode.ra_samples;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 @Path("/service")
 public class RestAssuredSampleService {
@@ -109,11 +115,40 @@ public class RestAssuredSampleService {
 				.header("anotherHeader", "bar").build();
 	}
 
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/contentype/accept")
+	public Response restrictToSingleContentType() {
+		return Response.noContent().build();
+	}
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/access/cookie-token-secured")
+	public Response accessSecuredByCookie(
+			@CookieParam("authtoken") final String authToken) {
+		if ("abcdef".equals(authToken)) {
+			return Response.ok().build();
+		}
+
+		return Response.status(Status.FORBIDDEN).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/cookie/modify")
+	public Response modifyCookie(@Context final HttpHeaders httpHeaders,
+			@QueryParam("name") final String name) {
+		NewCookie cookie = new NewCookie("userName", name);
+		return Response.ok().cookie(cookie).build();
+	}
+
 	// TODO:
 	// Setting the Content Type
 	// Verifying the Content Type
-	// Setting Cookies
-	// Verifying Cookies
+
 	// Specifying Path Parameters
 	// File Uploads
 	// Registering custom parsers for MIME-types
