@@ -8,13 +8,17 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasXPath;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import groovyx.net.http.ContentType;
 
+import java.io.File;
 import java.io.InputStream;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
 
@@ -139,5 +143,23 @@ public class RestAssuredSampleServiceIT {
 				.param("name", "Ted").get("/ra/service/cookie/modify");
 		expect().cookie("userName", equalTo("Bill")).when().with()
 				.param("name", "Bill").get("/ra/service/cookie/modify");
+	}
+
+	@Test
+	public void testFileUpload() {
+		final File file = new File(getClass().getClassLoader()
+				.getResource("test.txt").getFile());
+		assertNotNull(file);
+		assertTrue(file.canRead());
+		given().multiPart(file).expect()
+				.body(equalTo("This is an uploaded test file.")).when()
+				.post("/ra/service/file/upload");
+	}
+
+	@Test
+	public void testRegisterParserForUnknownContentType() {
+		RestAssured.registerParser("text/json", Parser.JSON);
+		expect().body("test", equalTo(true)).when()
+				.get("/ra/service/detail/json");
 	}
 }

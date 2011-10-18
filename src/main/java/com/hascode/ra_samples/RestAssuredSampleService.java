@@ -1,5 +1,8 @@
 package com.hascode.ra_samples;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -16,6 +20,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.commons.io.IOUtils;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/service")
 public class RestAssuredSampleService {
@@ -145,13 +156,37 @@ public class RestAssuredSampleService {
 		return Response.ok().cookie(cookie).build();
 	}
 
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Path("/file/upload")
+	public String contentFromFileupload(
+			@FormDataParam("file") final InputStream file,
+			@FormDataParam("file") final FormDataContentDisposition fileDisposition) {
+		try {
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(file, writer);
+			return writer.toString();
+		} catch (IOException e) {
+		}
+		return "";
+	}
+
+	@GET
+	@Produces("text/json")
+	@Path("/detail/json")
+	public String getDetailsAsJson() {
+		try {
+			JSONObject obj;
+			obj = new JSONObject("{\"test\":true}");
+			return obj.toString();
+		} catch (JSONException e) {
+		}
+		return "";
+	}
 	// TODO:
 	// Setting the Content Type
 	// Verifying the Content Type
 
-	// Specifying Path Parameters
-	// File Uploads
-	// Registering custom parsers for MIME-types
 	// Setting default values
 	// Specification reuse
 
