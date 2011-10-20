@@ -9,40 +9,37 @@ import static org.hamcrest.Matchers.hasXPath;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import groovyx.net.http.ContentType;
 
 import java.io.File;
 import java.io.InputStream;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.builder.ResponseSpecBuilder;
 import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
+import com.jayway.restassured.specification.ResponseSpecification;
 
+/**
+ * hasCode.com - REST-assured Examples by Micha Kops
+ * 
+ * visit www.hascode.com for the full tutorial
+ */
 public class RestAssuredSampleServiceIT {
 
-	/**
-	 * Tutorial note: The JSON returned is this
-	 * <code>{"email":"test@hascode.com","firstName":"Tim","id":"1","lastName":"Testerman"}</code>
-	 */
 	@Test
 	public void testGetSingleUser() {
 		expect().statusCode(200)
 				.body("email", equalTo("test@hascode.com"), "firstName",
 						equalTo("Tim"), "lastName", equalTo("Testerman"), "id",
-						equalTo("1")).when().get("/ra/service/single-user");
+						equalTo("1")).when().get("/service/single-user");
 	}
 
-	/**
-	 * Tutorial note: The JSON returned is this
-	 * <code>{"email":"test@hascode.com","firstName":"Tim","id":"1","lastName":"Testerman"}</code>
-	 */
 	@Test
 	public void testGetSingleUserProgrammatic() {
-		Response res = get("/ra/service/single-user");
+		Response res = get("/service/single-user");
 		assertEquals(200, res.getStatusCode());
 		String json = res.asString();
 		JsonPath jp = new JsonPath(json);
@@ -58,7 +55,7 @@ public class RestAssuredSampleServiceIT {
 				.body("user.email", equalTo("test@hascode.com"),
 						"user.firstName", equalTo("Tim"), "user.lastName",
 						equalTo("Testerman"), "user.id", equalTo("1")).when()
-				.get("/ra/service/single-user/xml");
+				.get("/service/single-user/xml");
 	}
 
 	@Test
@@ -67,7 +64,7 @@ public class RestAssuredSampleServiceIT {
 				.body(hasXPath("//person[@id='1']/email[.='test@hascode.com'] and firstName='Tim' and lastName='Testerman'"))
 				.body(hasXPath("//person[@id='20']/email[.='dev@hascode.com'] and firstName='Sara' and lastName='Stevens'"))
 				.body(hasXPath("//person[@id='1']/email[.='devnull@hascode.com'] and firstName='Mark' and lastName='Mustache'"))
-				.when().get("/ra/service/persons/xml");
+				.when().get("/service/persons/xml");
 	}
 
 	@Test
@@ -75,7 +72,7 @@ public class RestAssuredSampleServiceIT {
 		InputStream xsd = getClass().getResourceAsStream("/user.xsd");
 		assertNotNull(xsd);
 		expect().statusCode(200).body(matchesXsd(xsd)).when()
-				.get("/ra/service/single-user/xml");
+				.get("/service/single-user/xml");
 	}
 
 	@Test
@@ -88,61 +85,52 @@ public class RestAssuredSampleServiceIT {
 				lastName).expect().body("email", equalTo(email))
 				.body("firstName", equalTo(firstName))
 				.body("lastName", equalTo(lastName)).when()
-				.get("/ra/service/user/create");
+				.get("/service/user/create");
 	}
 
 	@Test
 	public void testStatusNotFound() {
-		expect().statusCode(404).when().get("/ra/service/status/notfound");
+		expect().statusCode(404).when().get("/service/status/notfound");
 	}
 
 	@Test
 	public void testAuthenticationWorking() {
 		// we're not authenticated, service returns "401 Unauthorized"
-		expect().statusCode(401).when().get("/ra/service/secure/person");
+		expect().statusCode(401).when().get("/service/secure/person");
 
 		// with authentication it is working
-		expect().statusCode(200).body(equalTo("Ok")).when().with()
-				.authentication().basic("admin", "admin")
-				.get("/ra/service/secure/person");
+		expect().statusCode(200).when().with().authentication()
+				.basic("admin", "admin").get("/service/secure/person");
 	}
 
 	@Test
 	public void testSetRequestHeaders() {
 		expect().body(equalTo("TEST")).when().with().header("myparam", "TEST")
-				.get("/ra/service/header/print");
+				.get("/service/header/print");
 		expect().body(equalTo("foo")).when().with().header("myparam", "foo")
-				.get("/ra/service/header/print");
+				.get("/service/header/print");
 	}
 
 	@Test
 	public void testReturnedHeaders() {
 		expect().headers("customHeader1", "foo", "anotherHeader", "bar").when()
-				.get("/ra/service/header/multiple");
-	}
-
-	@Ignore("tbd .. @Consumes is set but status 200 returned")
-	@Test
-	public void testRestrictToSingleContentType() {
-		expect().contentType(ContentType.XML).statusCode(415).when().with()
-				.contentType(ContentType.JSON)
-				.get("/ra/service/contentype/accept");
+				.get("/service/header/multiple");
 	}
 
 	@Test
 	public void testAccessSecuredByCookie() {
 		expect().statusCode(403).when()
-				.get("/ra/service/access/cookie-token-secured");
+				.get("/service/access/cookie-token-secured");
 		given().cookie("authtoken", "abcdef").expect().statusCode(200).when()
-				.get("/ra/service/access/cookie-token-secured");
+				.get("/service/access/cookie-token-secured");
 	}
 
 	@Test
 	public void testModifyCookie() {
 		expect().cookie("userName", equalTo("Ted")).when().with()
-				.param("name", "Ted").get("/ra/service/cookie/modify");
+				.param("name", "Ted").get("/service/cookie/modify");
 		expect().cookie("userName", equalTo("Bill")).when().with()
-				.param("name", "Bill").get("/ra/service/cookie/modify");
+				.param("name", "Bill").get("/service/cookie/modify");
 	}
 
 	@Test
@@ -153,13 +141,38 @@ public class RestAssuredSampleServiceIT {
 		assertTrue(file.canRead());
 		given().multiPart(file).expect()
 				.body(equalTo("This is an uploaded test file.")).when()
-				.post("/ra/service/file/upload");
+				.post("/service/file/upload");
 	}
 
 	@Test
 	public void testRegisterParserForUnknownContentType() {
 		RestAssured.registerParser("text/json", Parser.JSON);
-		expect().body("test", equalTo(true)).when()
-				.get("/ra/service/detail/json");
+		expect().body("test", equalTo(true)).when().get("/service/detail/json");
+	}
+
+	@Test
+	public void testSpecReuse() {
+		ResponseSpecBuilder builder = new ResponseSpecBuilder();
+		builder.expectStatusCode(200);
+		builder.expectBody("email", equalTo("test@hascode.com"));
+		builder.expectBody("firstName", equalTo("Tim"));
+		builder.expectBody("lastName", equalTo("Testerman"));
+		builder.expectBody("id", equalTo("1"));
+		ResponseSpecification responseSpec = builder.build();
+
+		// now we're able to use this specification for this test
+		expect().spec(responseSpec).when().get("/service/single-user");
+
+		// now re-use for another test that returns similar data .. you may
+		// extend the specification with further tests as you wish
+		final String email = "test@hascode.com";
+		final String firstName = "Tim";
+		final String lastName = "Testerman";
+
+		expect().spec(responseSpec)
+				.when()
+				.with()
+				.parameters("email", email, "firstName", firstName, "lastName",
+						lastName).get("/service/user/create");
 	}
 }

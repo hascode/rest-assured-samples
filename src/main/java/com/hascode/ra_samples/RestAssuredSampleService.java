@@ -107,8 +107,8 @@ public class RestAssuredSampleService {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/secure/person")
-	public String secureGetPerson() {
-		return "Ok";
+	public Response secureGetPerson() {
+		return Response.ok().build();
 	}
 
 	@GET
@@ -124,14 +124,6 @@ public class RestAssuredSampleService {
 	public Response multipleHeader() {
 		return Response.ok().header("customHeader1", "foo")
 				.header("anotherHeader", "bar").build();
-	}
-
-	@GET
-	@Produces(MediaType.APPLICATION_XML)
-	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/contentype/accept")
-	public Response restrictToSingleContentType() {
-		return Response.noContent().build();
 	}
 
 	@GET
@@ -183,11 +175,4 @@ public class RestAssuredSampleService {
 		}
 		return "";
 	}
-	// TODO:
-	// Setting the Content Type
-	// Verifying the Content Type
-
-	// Setting default values
-	// Specification reuse
-
 }

@@ -1,45 +1,111 @@
 <html>
 	<head>
-		<title>hasCode.com - REST-assured Examples Webapp</title>
+		<title>hasCode.com - REST-assured Examples</title>
+		<style type="text/css">
+			body {
+				font-family: Arial, sans-serif;
+			}
+			h1 {
+				font-size:20px;
+				border-bottom:5px solid #000;
+				margin-top:20px;
+			}
+				
+			table, td {
+				border:1px solid #000;
+				padding: 10px;
+				border-collapse:collapse;
+				font-size:12px;
+			}	
+			th {
+				background-color:#000;
+				color:#fff;
+				font-size:13px;
+				height:20px;
+				padding:5px 10px;
+			}
+			blockquote {
+				text-align:left;
+			}
+			em {
+				font-weight:bold;
+				font-style:normal;
+				font-size:13px;
+			}
+			.type {
+				background-color:#666;
+			}
+			.header {
+				background-color:#ddd;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>hasCode.com REST-assured xxamples</h1>
+		<h1>hasCode.com REST-assured Examples</h1>
 		<table>
-			<caption>Examples Overview</caption>
-			<thead>
-				<tr>
-					<th>URL</th>
-					<th>Method</th>
-					<th>Content-Type</th>
-					<th>HTTP-Status</th>
-					<th>Body</th>
-				</tr>
-			</thead>
+			<caption>Services Overview</caption>
 			<tbody>
+				<!-- Example #1 -->
 				<tr>
-					<td colspan="4" align="center"><em>Validate returned JSON via Get</em></td>
+					<th colspan="5"><em>Validate returned JSON via GET</em></th>
 				</tr>
 				<tr>
-					<td><a href="/rest-assured-examples-webapp/raexample/single-user">/rest-assured-examples-webapp/raexample/single-user</a></td>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/single-user">/service/single-user</a></td>
 					<td>GET</td>
-					<td>application/json</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
 					<td>200</td>
-					<td><blockquote><pre escaped="true" lang="json">{
+					<td>application/json</td>
+					<td colspan="2"><blockquote><pre escaped="true" lang="json">{
   "email":"test@hascode.com",
   "firstName":"Tim",
   "id":"1",
   "lastName":"Testerman"
 }</pre></blockquote></td>
 				</tr>
+				
+				<!-- Example #2 -->
 				<tr>
-					<td colspan="4" align="center"><em>XML Example</em></td>
+					<th colspan="5"><em>Validate returned XML via GET</em></th>
 				</tr>
 				<tr>
-					<td><a href="/rest-assured-examples-webapp/raexample/user-with-attrs/xml">/rest-assured-examples-webapp/raexample/user-with-attrs/xml</a></td>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/single-user">/service/single-user/xml</a></td>
 					<td>GET</td>
-					<td>application/xml</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
 					<td>200</td>
-					<td><blockquote><pre escaped="true" lang="xml"><?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+					<td>application/xml</td>
+					<td colspan="2"><blockquote><pre escaped="true" lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
 &lt;user&gt;
   &lt;email&gt;test@hascode.com&lt;/email&gt;
   &lt;firstName&gt;Tim&lt;/firstName&gt;
@@ -47,15 +113,34 @@
   &lt;lastName&gt;Testerman&lt;/lastName&gt;
 &lt;/user&gt;</pre></blockquote></td>
 				</tr>
-							<tr>
-					<td colspan="4" align="center"><em>XML using XPath</em></td>
+				
+				<!-- Example #3 -->
+				<tr>
+					<th colspan="5"><em>XPath Validation</em></th>
 				</tr>
 				<tr>
-					<td><a href="/rest-assured-examples-webapp/raexample/persons/xml">/rest-assured-examples-webapp/raexample/persons/xml</a></td>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>	
+				<tr>
+					<td><a href="/service/single-user">/service/persons/xml</a></td>
 					<td>GET</td>
-					<td>application/xml</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
 					<td>200</td>
-					<td><blockquote><pre escaped="true" lang="xml"><?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+					<td>application/xml</td>
+					<td colspan="2"><blockquote><pre escaped="true" lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
 &lt;people&gt;
   &lt;person id="1"&gt;
     &lt;email&gt;test@hascode.com&lt;/email&gt;
@@ -73,17 +158,129 @@
     &lt;lastName&gt;Mustache&lt;/lastName&gt;
   &lt;/person&gt;
 &lt;/people&gt;</pre></blockquote></td>
-				</tr>
-								<tr>
-					<td colspan="4" align="center"><em></em></td>
+				</tr>	
+				
+				<!-- Example #4 -->
+				<tr>
+					<th colspan="5"><em>Passing Parameters</em></th>
 				</tr>
 				<tr>
-					<td><a href="/rest-assured-examples-webapp/raexample/">/rest-assured-examples-webapp/raexample/</a></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
 				</tr>
+				<tr>
+					<td><a href="/service/user/create">/service/user/create</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>Params: email, firstName, lastName</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>application/json</td>
+					<td colspan="2"><blockquote><pre escaped="true" lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;user&gt;
+  &lt;email&gt;test@hascode.com&lt;/email&gt;
+  &lt;firstName&gt;Tim&lt;/firstName&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;lastName&gt;Testerman&lt;/lastName&gt;
+&lt;/user&gt;</pre></blockquote></td>
+				</tr>	
+
+				<!-- Example #5 -->
+				<tr>
+					<th colspan="5"><em>404 - Page Not Found</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/status/notfound">/service/status/notfound</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
+					<td>404</td>
+					<td>text/plain</td>
+					<td colspan="2">-</td>
+				</tr>					
+
+				<!-- Example #6 -->
+				<tr>
+					<th colspan="5"><em>Basic Authentication</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service//secure/person">/service//secure/person</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>Basic Auth with username=admin and password=admin</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
+					<td>401 / 200</td>
+					<td>text/plain</td>
+					<td colspan="2">-</td>
+				</tr>	
+				
+																						<!-- Example #6 -->
+				<tr>
+					<th colspan="5"><em>HTTP Headers</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/header/print">/service/header/print</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>Header "myparam"</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>text/plain</td>
+					<td colspan="2">String value of given header param "myparam"</td>
+				</tr>				
 			</tbody>
 		</table>
 	</body>
