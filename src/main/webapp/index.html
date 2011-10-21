@@ -236,7 +236,7 @@
 					<td class="header">Extras</td>
 				</tr>
 				<tr>
-					<td><a href="/service//secure/person">/service//secure/person</a></td>
+					<td><a href="/service/secure/person">/service/secure/person</a></td>
 					<td>GET</td>
 					<td>-</td>
 					<td>Basic Auth with username=admin and password=admin</td>
@@ -280,7 +280,147 @@
 					<td>200</td>
 					<td>text/plain</td>
 					<td colspan="2">String value of given header param "myparam"</td>
-				</tr>				
+				</tr>	
+				
+				<tr>
+					<th colspan="5"><em>Returning multiple HTTP Headers</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/header/multiple">/service/header/multiple</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Headers</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>text/plain</td>
+					<td colspan="2">customHeader1:foo, anotherHeader:bar</td>
+				</tr>	
+				
+				<tr>
+					<th colspan="5"><em>Sending Cookies</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>
+				<tr>
+					<td><a href="/service/access/cookie-token-secured">/service/access/cookie-token-secured</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>Cookie: authtoken</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body</td>
+				</tr>
+				<tr>
+					<td>403 (if cookie authtoken != abcdef)/ 200</td>
+					<td>text/plain</td>
+					<td colspan="2">-</td>
+				</tr>	
+				
+				<tr>
+					<th colspan="5"><em>Receiving Cookies</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Request Parameter</td>
+				</tr>
+				<tr>
+					<td><a href="/service/cookie/modify">/service/cookie/modify</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>name</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Cookie</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>text/plain</td>
+					<td colspan="2">userName:value-of-name-request-parameter</td>
+				</tr>	
+				
+				<tr>
+					<th colspan="5"><em>File uploads</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Param</td>
+				</tr>
+				<tr>
+					<td><a href="/service/file/upload">/service/file/upload</a></td>
+					<td>GET</td>
+					<td>multipart/form-data</td>
+					<td>file</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>text/plain</td>
+					<td colspan="2">the file's content</td>
+				</tr>	
+				
+				<tr>
+					<th colspan="5"><em>Sending illegal content type</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Param</td>
+				</tr>
+				<tr>
+					<td><a href="/service/detail/json">/service/detail/json</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td><i>text</i>/json</td>
+					<td colspan="2">{"test":true}</td>
+				</tr>																											
 			</tbody>
 		</table>
 	</body>
