@@ -91,7 +91,7 @@
 					<td class="header">Extras</td>
 				</tr>
 				<tr>
-					<td><a href="./service/single-user">/service/single-user/xml</a></td>
+					<td><a href="./service/single-user/xml">/service/single-user/xml</a></td>
 					<td>GET</td>
 					<td>-</td>
 					<td>-</td>
@@ -126,7 +126,7 @@
 					<td class="header">Extras</td>
 				</tr>	
 				<tr>
-					<td><a href="./service/single-user">/service/persons/xml</a></td>
+					<td><a href="./service/persons/xml">/service/persons/xml</a></td>
 					<td>GET</td>
 					<td>-</td>
 					<td>-</td>
@@ -158,6 +158,54 @@
     &lt;lastName&gt;Mustache&lt;/lastName&gt;
   &lt;/person&gt;
 &lt;/people&gt;</pre></blockquote></td>
+				</tr>	
+				
+					<!-- Example #3 -->
+				<tr>
+					<th colspan="5"><em>JSON Structure</em></th>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Request</td>
+					<td class="header">URL</td>
+					<td class="header">Method</td>
+					<td class="header">Content-Type</td>
+					<td class="header">Extras</td>
+				</tr>	
+				<tr>
+					<td><a href="./service/persons/json">/service/persons/json</a></td>
+					<td>GET</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="type" rowspan="2">Response</td>
+					<td class="header">Status</td>
+					<td class="header">Content-Type</td>
+					<td colspan="2" class="header">Body/Content</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>application/json</td>
+					<td colspan="2"><blockquote><pre escaped="true" lang="json">{
+	"person":[
+	{
+		"@id":"1",
+		"email":"test@hascode.com",
+		"firstName":"Tim",
+		"lastName":"Testerman"
+	},{
+		"@id":"20",
+		"email":"dev@hascode.com",
+		"firstName":"Sara",
+		"lastName":"Stevens"
+	},{
+		"@id":"11",
+		"email":"devnull@hascode.com",
+		"firstName":"Mark",
+		"lastName":"Mustache"
+	}
+	]
+}</pre></blockquote></td>
 				</tr>	
 				
 				<!-- Example #4 -->
@@ -420,7 +468,10 @@
 					<td>200</td>
 					<td><i>text</i>/json</td>
 					<td colspan="2">{"test":true}</td>
-				</tr>																											
+				</tr>	
+				<tr>
+					<td colspan="5" style="text-align:center"><a href="http://www.hascode.com">by Micha Kops - hasCode.com</a></td>
+				</tr>																										
 			</tbody>
 		</table>
 	</body>

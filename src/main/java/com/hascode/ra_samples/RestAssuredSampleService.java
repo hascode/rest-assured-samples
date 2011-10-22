@@ -84,6 +84,34 @@ public class RestAssuredSampleService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/persons/json")
+	public List<Person> allUsersAsJson() {
+		List<Person> users = new ArrayList<Person>();
+		Person person1 = new Person();
+		person1.setEmail("test@hascode.com");
+		person1.setFirstName("Tim");
+		person1.setLastName("Testerman");
+		person1.setId(1L);
+		users.add(person1);
+
+		Person person2 = new Person();
+		person2.setEmail("dev@hascode.com");
+		person2.setFirstName("Sara");
+		person2.setLastName("Stevens");
+		person2.setId(20L);
+		users.add(person2);
+
+		Person person3 = new Person();
+		person3.setEmail("devnull@hascode.com");
+		person3.setFirstName("Mark");
+		person3.setLastName("Mustache");
+		person3.setId(11L);
+		users.add(person3);
+		return users;
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/user/create")
 	public User createUser(@QueryParam("email") final String email,
 			@QueryParam("firstName") final String firstName,

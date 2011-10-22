@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -65,6 +66,18 @@ public class RestAssuredSampleServiceIT {
 				.body(hasXPath("//person[@id='20']/email[.='dev@hascode.com'] and firstName='Sara' and lastName='Stevens'"))
 				.body(hasXPath("//person[@id='1']/email[.='devnull@hascode.com'] and firstName='Mark' and lastName='Mustache'"))
 				.when().get("/service/persons/xml");
+	}
+
+	@Test
+	public void testFindUsingGroovyClosure() {
+		String json = get("/service/persons/json").asString();
+		JsonPath jp = new JsonPath(json);
+		jp.setRoot("person");
+		Map person = jp.get("find {e -> e.email =~ /test@/}");
+		assertEquals("test@hascode.com", person.get("email"));
+		assertEquals("Tim", person.get("firstName"));
+		assertEquals("Testerman", person.get("lastName"));
+
 	}
 
 	@Test
